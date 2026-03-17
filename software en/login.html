@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TravelSphere | Login & Signup</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav">
+        <div class="brand">
+          <div class="brand-logo"></div>
+          <div class="brand-title">TravelSphere</div>
+        </div>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="scientist-dashboard.html">Analytics</a>
+        </nav>
+      </header>
+
+      <main class="main-content">
+        <div class="page" style="max-width: 900px">
+          <div class="section-header" style="margin-top: 32px">
+            <div>
+              <h2 class="section-title">Access your TravelSphere portal</h2>
+              <p class="section-subtitle">
+                Log in as a traveler, agent, admin or NATPAC scientist.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid-row" style="grid-template-columns: 1.2fr 1fr">
+            <section class="card">
+              <div class="card-header">
+                <h2>Login</h2>
+              </div>
+              <form>
+                <div class="filter-group" style="margin-bottom: 12px">
+                  <label>Email</label>
+                  <input type="email" placeholder="you@example.com" />
+                </div>
+                <div class="filter-group" style="margin-bottom: 12px">
+                  <label>Password</label>
+                  <input type="password" placeholder="••••••••" />
+                </div>
+                <div class="filter-group" style="margin-bottom: 16px">
+                  <label>Role</label>
+                  <select>
+                    <option>Traveler</option>
+                    <option>Travel Agent</option>
+                    <option>Admin</option>
+                    <option>NATPAC Scientist</option>
+                  </select>
+                </div>
+                <button type="button" class="btn-primary" style="width: 100%">
+                  Login
+                </button>
+              </form>
+            </section>
+
+            <section class="card">
+              <div class="card-header">
+                <h2>Sign up</h2>
+              </div>
+              <form>
+                <div class="filter-group" style="margin-bottom: 8px">
+                  <label>Full name</label>
+                  <input type="text" placeholder="Your name" />
+                </div>
+                <div class="filter-group" style="margin-bottom: 8px">
+                  <label>Email</label>
+                  <input type="email" placeholder="you@example.com" />
+                </div>
+                <div class="filter-group" style="margin-bottom: 8px">
+                  <label>Create password</label>
+                  <input type="password" placeholder="••••••••" />
+                </div>
+                <div class="filter-group" style="margin-bottom: 12px">
+                  <label>Role</label>
+                  <select>
+                    <option>Traveler</option>
+                    <option>Travel Agent</option>
+                    <option>Admin</option>
+                    <option>NATPAC Scientist</option>
+                  </select>
+                </div>
+                <button type="button" class="btn-secondary" style="width: 100%">
+                  Create account
+                </button>
+              </form>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+

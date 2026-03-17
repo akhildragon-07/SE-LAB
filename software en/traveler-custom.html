@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TravelSphere | Custom Package Request</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav">
+        <div class="brand">
+          <div class="brand-logo"></div>
+          <div class="brand-title">TravelSphere</div>
+        </div>
+        <nav class="nav-links">
+          <a href="traveler-dashboard.html">Dashboard</a>
+        </nav>
+      </header>
+
+      <main class="main-content">
+        <div class="page">
+          <div class="section-header" style="margin-top: 24px">
+            <div>
+              <h2 class="section-title">Request a custom package</h2>
+              <p class="section-subtitle">
+                Share your preferences so our travel agents can design a tailored
+                itinerary with costings.
+              </p>
+            </div>
+          </div>
+
+          <section class="card" style="margin-top: 12px">
+            <form>
+              <div class="filter-group" style="margin-bottom: 12px">
+                <label>Preferred destination(s)</label>
+                <input type="text" placeholder="E.g. Munnar + Thekkady" />
+              </div>
+              <div class="filter-group" style="margin-bottom: 12px">
+                <label>Travel dates</label>
+                <input type="text" placeholder="Approximate dates or month" />
+              </div>
+              <div class="filter-group" style="margin-bottom: 12px">
+                <label>Number of travelers</label>
+                <input type="number" min="1" placeholder="2 adults, 1 child" />
+              </div>
+              <div class="filter-group" style="margin-bottom: 12px">
+                <label>Budget range</label>
+                <input type="text" placeholder="E.g. ₹40,000 – ₹60,000" />
+              </div>
+              <div class="filter-group" style="margin-bottom: 12px">
+                <label>Interests</label>
+                <input
+                  type="text"
+                  placeholder="Beach, hill stations, adventure, heritage, etc."
+                />
+              </div>
+              <div class="filter-group" style="margin-bottom: 16px">
+                <label>Additional requirements</label>
+                <textarea
+                  rows="4"
+                  style="resize: vertical; padding: 8px; border-radius: 10px; border: 1px solid var(--color-border); font-family: inherit; font-size: 0.9rem"
+                  placeholder="Hotel preferences, transport, activities, special needs…"
+                ></textarea>
+              </div>
+
+              <button type="button" class="btn-primary">
+                Submit request to agents
+              </button>
+            </form>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+

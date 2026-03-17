@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TravelSphere | Agent Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav">
+        <div class="brand">
+          <div class="brand-logo"></div>
+          <div class="brand-title">TravelSphere</div>
+        </div>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main-content">
+        <div class="page">
+          <div class="section-header" style="margin-top: 24px">
+            <div>
+              <h2 class="section-title">Travel Agent Dashboard</h2>
+              <p class="section-subtitle">
+                View custom requests, build packages, and manage bookings.
+              </p>
+            </div>
+          </div>
+
+          <div class="card-grid" style="grid-template-columns: repeat(3, 1fr)">
+            <article class="role-card">
+              <h3>Total packages</h3>
+              <p>18 published</p>
+            </article>
+            <article class="role-card">
+              <h3>Active custom requests</h3>
+              <p>4 awaiting proposal</p>
+            </article>
+            <article class="role-card">
+              <h3>Monthly revenue</h3>
+              <p>₹2,40,000</p>
+            </article>
+          </div>
+
+          <section class="section">
+            <div class="section-header">
+              <h2 class="section-title">Incoming custom package requests</h2>
+            </div>
+            <div class="insights-grid" style="grid-template-columns: repeat(2, 1fr)">
+              <article class="card insight-card">
+                <h3>Family trip to Munnar</h3>
+                <p>
+                  2 adults, 1 child · 4D/3N · Budget ₹45,000 · Interests: tea
+                  estates, easy hikes.
+                </p>
+                <span class="tag tag-opportunity">Awaiting costing</span>
+              </article>
+              <article class="card insight-card">
+                <h3>Friends’ Goa getaway</h3>
+                <p>
+                  4 adults · 3D/2N · Budget ₹60,000 · Interests: nightlife, water
+                  sports.
+                </p>
+                <span class="tag tag-growth">Proposal sent</span>
+              </article>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+
