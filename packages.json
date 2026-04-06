@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "title": "Kerala Backwaters & Hills",
+    "description": "5 Days / 4 Nights. Includes houseboat stay in Alleppey and Munnar sightseeing.",
+    "price": 25000,
+    "image": "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=400&q=80",
+    "type": "Domestic"
+  },
+  {
+    "id": 2,
+    "title": "Swiss Alpine Adventure",
+    "description": "7 Days / 6 Nights. Premium suite, train passes, and Mt. Titlis excursion.",
+    "price": 120000,
+    "image": "https://images.unsplash.com/photo-1549893072-6bc6784bb5f7?auto=format&fit=crop&w=400&q=80",
+    "type": "International"
+  },
+  {
+    "id": 3,
+    "title": "Goa Beach Retreat",
+    "description": "3 Days / 2 Nights. Beachfront resort with water sports and island hopping.",
+    "price": 15000,
+    "image": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=400&q=80",
+    "type": "Domestic"
+  },
+  {
+    "id": 4,
+    "title": "Dubai City Tour",
+    "description": "4 Days / 3 Nights. Burj Khalifa access, desert safari, and dhow cruise.",
+    "price": 55000,
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=80",
+    "type": "International"
+  }
+]

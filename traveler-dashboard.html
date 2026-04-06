@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TravelSphere | Traveler Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav">
+        <div class="brand">
+          <div class="brand-logo"></div>
+          <div class="brand-title">TravelSphere</div>
+        </div>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn-secondary">Profile</button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <div class="page">
+          <div class="section-header" style="margin-top: 24px">
+            <div>
+              <h2 class="section-title">Traveler Dashboard</h2>
+              <p class="section-subtitle">
+                See your upcoming trips, explore basic packages, or request a custom
+                itinerary.
+              </p>
+            </div>
+          </div>
+
+          <div class="card-grid" style="grid-template-columns: repeat(4, 1fr)">
+            <article class="role-card">
+              <h3>Upcoming Trips</h3>
+              <p>2 confirmed, 1 pending</p>
+            </article>
+            <article class="role-card">
+              <h3>Past Trips</h3>
+              <p>5 completed journeys</p>
+            </article>
+            <article class="role-card">
+              <h3>Saved Packages</h3>
+              <p>4 packages saved</p>
+            </article>
+            <article class="role-card">
+              <h3>Total Spend</h3>
+              <p>₹1,20,000</p>
+            </article>
+          </div>
+
+          <section class="section">
+            <div class="section-header">
+              <h2 class="section-title">What would you like to do?</h2>
+            </div>
+            <div class="card-grid" style="grid-template-columns: repeat(3, 1fr)">
+              <article class="role-card">
+                <h3>Book a basic package</h3>
+                <p>Browse curated packages with ready itineraries.</p>
+                <a href="traveler-packages.html" class="pill-link">Browse packages</a>
+              </article>
+              <article class="role-card">
+                <h3>Create a custom package</h3>
+                <p>Describe your ideal dates, budget and interests.</p>
+                <a href="traveler-custom.html" class="pill-link">Request custom trip</a>
+              </article>
+              <article class="role-card">
+                <h3>View my bookings</h3>
+                <p>Check status, download itineraries, and manage trips.</p>
+              </article>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+

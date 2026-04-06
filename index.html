@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TravelSphere | Smart Travel Management</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav">
+        <div class="brand">
+          <div class="brand-logo"></div>
+          <div class="brand-title">TravelSphere</div>
+        </div>
+        <nav class="nav-links">
+          <a href="#roles">Roles</a>
+          <a href="#features">Features</a>
+          <a href="scientist-dashboard.html">Analytics</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn-secondary" onclick="location.href='login.html'">
+            Login
+          </button>
+          <button class="btn-primary" onclick="location.href='login.html'">
+            Get Started
+          </button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <section class="hero page">
+          <div>
+            <h1 class="hero-title">Plan, Customize & Analyze Travel Smarter.</h1>
+            <p class="hero-subtitle">
+              TravelSphere connects travelers, agents, admins and NATPAC scientists
+              on one platform for seamless trip booking, custom packages and tourism
+              insights.
+            </p>
+
+            <div class="search-bar">
+              <div class="search-field">
+                <label>Destination</label>
+                <input placeholder="Where do you want to go?" />
+              </div>
+              <div class="search-field">
+                <label>Dates</label>
+                <input type="text" placeholder="Select dates" />
+              </div>
+              <div class="search-field">
+                <label>Budget</label>
+                <select>
+                  <option>Any</option>
+                  <option>₹10k – ₹25k</option>
+                  <option>₹25k – ₹50k</option>
+                  <option>₹50k+</option>
+                </select>
+              </div>
+              <button class="btn-primary">Search Trips</button>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-card">
+              <div class="hero-map"></div>
+              <div class="hero-kpis">
+                <div class="hero-kpi">
+                  <div class="hero-kpi-label">Live Footfall</div>
+                  <div class="hero-kpi-value">+18%</div>
+                </div>
+                <div class="hero-kpi">
+                  <div class="hero-kpi-label">Avg Spend / Trip</div>
+                  <div class="hero-kpi-value">₹32.5k</div>
+                </div>
+                <div class="hero-kpi">
+                  <div class="hero-kpi-label">Top Region</div>
+                  <div class="hero-kpi-value">Coastal</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page section" id="roles">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Built for every stakeholder</h2>
+              <p class="section-subtitle">
+                Simple portals for travelers and agents, with a powerful analytics
+                workspace for NATPAC scientists.
+              </p>
+            </div>
+          </div>
+
+          <div class="role-grid">
+            <article class="role-card">
+              <img src="assets/images/role-traveler.png" alt="Traveler" class="role-img" />
+              <h3>Traveler</h3>
+              <p>Discover, book and customize your ideal trip.</p>
+              <ul>
+                <li>Browse curated basic packages</li>
+                <li>Create custom trip requests</li>
+                <li>Track bookings and itineraries</li>
+              </ul>
+              <a href="login.html" class="pill-link">Open Traveler Portal</a>
+            </article>
+
+            <article class="role-card">
+              <img src="assets/images/role-agent.png" alt="Travel Agent" class="role-img" />
+              <h3>Travel Agent</h3>
+              <p>Turn traveler requirements into tailored packages.</p>
+              <ul>
+                <li>See incoming custom package requests</li>
+                <li>Build itineraries with clear costing</li>
+                <li>Manage active bookings</li>
+              </ul>
+              <a href="login.html" class="pill-link">Open Agent Workspace</a>
+            </article>
+
+            <article class="role-card">
+              <img src="assets/images/role-admin.png" alt="Admin" class="role-img" />
+              <h3>Admin</h3>
+              <p>Control users, agents and platform performance.</p>
+              <ul>
+                <li>Approve agents and oversee bookings</li>
+                <li>Monitor revenue and system KPIs</li>
+              </ul>
+              <a href="login.html" class="pill-link">Open Admin Dashboard</a>
+            </article>
+
+            <article class="role-card">
+              <img src="assets/images/role-scientist.png" alt="NATPAC Scientist" class="role-img" />
+              <h3>NATPAC Scientist</h3>
+              <p>Analyze tourism trends and generate policy insights.</p>
+              <ul>
+                <li>Study regional footfall and seasonality</li>
+                <li>Export reports for tourism planning</li>
+              </ul>
+              <a href="scientist-dashboard.html" class="pill-link">Open Analytics</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="page section" id="features">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Key flows in TravelSphere</h2>
+              <p class="section-subtitle">
+                From basic package booking to custom itineraries and tourism
+                reporting.
+              </p>
+            </div>
+          </div>
+
+          <div class="card-grid">
+            <article class="role-card">
+              <img src="assets/images/feature-booking.png" alt="Package Booking" class="role-img" />
+              <h3>Basic Package Booking</h3>
+              <p>
+                Travelers pick from ready-made packages with clear pricing, dates
+                and inclusions.
+              </p>
+            </article>
+
+            <article class="role-card">
+              <h3>Custom Package Requests</h3>
+              <p>
+                Travelers describe their ideal trip; agents respond with tailored
+                itineraries and costs.
+              </p>
+            </article>
+
+            <article class="role-card">
+              <h3>Agent Costing & Approvals</h3>
+              <p>
+                Agents break down costs, share proposals, and confirm bookings with
+                travelers.
+              </p>
+            </article>
+
+            <article class="role-card">
+              <h3>Tourism Insight Reports</h3>
+              <p>
+                NATPAC scientists explore booking data to highlight high-growth
+                regions and gaps.
+              </p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TravelSphere | NATPAC Analytics</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav">
+        <div class="brand">
+          <div class="brand-logo"></div>
+          <div class="brand-title">TravelSphere</div>
+        </div>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main-content">
+        <div class="page">
+          <header class="page-header">
+            <h1>Tourism Analytics Overview</h1>
+            <p class="subtitle">
+              Monitor tourist footfall, spending, and destination performance from
+              TravelSphere bookings.
+            </p>
+          </header>
+
+          <section class="filter-bar">
+            <div class="filter-group">
+              <label>Region</label>
+              <select>
+                <option>All regions</option>
+                <option>North</option>
+                <option>South</option>
+                <option>Coastal</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Time Range</label>
+              <select>
+                <option>Last 12 months</option>
+                <option>Last 6 months</option>
+                <option>YTD</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Traveler Type</label>
+              <select>
+                <option>All</option>
+                <option>Domestic</option>
+                <option>International</option>
+              </select>
+            </div>
+            <button class="btn-primary">Apply Filters</button>
+          </section>
+
+          <section class="grid-row">
+            <div class="card card-map">
+              <div class="card-header">
+                <h2>Tourist Footfall by Region</h2>
+                <span class="chip chip-blue">Live</span>
+              </div>
+              <div class="map-placeholder">
+                <span>Map visualization goes here</span>
+              </div>
+              <div class="legend">
+                <span class="legend-item">
+                  <span class="legend-color legend-low"></span>Low
+                </span>
+                <span class="legend-item">
+                  <span class="legend-color legend-medium"></span>Medium
+                </span>
+                <span class="legend-item">
+                  <span class="legend-color legend-high"></span>High
+                </span>
+              </div>
+            </div>
+
+            <aside class="kpi-column">
+              <div class="card kpi-card">
+                <p class="kpi-label">Total Tourists</p>
+                <p class="kpi-value">1.24M</p>
+                <p class="kpi-trend positive">+18% vs last year</p>
+              </div>
+              <div class="card kpi-card">
+                <p class="kpi-label">Avg Spend / Trip</p>
+                <p class="kpi-value">₹32,500</p>
+                <p class="kpi-trend neutral">Stable</p>
+              </div>
+              <div class="card kpi-card">
+                <p class="kpi-label">Avg Stay Duration</p>
+                <p class="kpi-value">4.3 days</p>
+                <p class="kpi-trend positive">+0.6 days</p>
+              </div>
+            </aside>
+          </section>
+
+          <section class="grid-row">
+            <div class="card chart-card">
+              <div class="card-header">
+                <h2>Seasonal Travel Trends</h2>
+              </div>
+              <div style="position: relative; height: 300px; width: 100%;">
+                  <canvas id="lineChart"></canvas>
+              </div>
+            </div>
+            <div class="card chart-card">
+              <div class="card-header">
+                <h2>Tourist Demographics</h2>
+              </div>
+              <div style="position: relative; height: 300px; width: 100%;">
+                  <canvas id="barChart"></canvas>
+              </div>
+            </div>
+          </section>
+
+          <section class="insights-row">
+            <h2 class="section-title">Key Insights</h2>
+            <div class="insights-grid">
+              <article class="card insight-card">
+                <h3>Coastal Footfall Rising</h3>
+                <p>
+                  Coastal regions saw a 24% increase in tourist arrivals, driven
+                  primarily by domestic travelers aged 25–34.
+                </p>
+                <span class="tag tag-growth">High growth</span>
+              </article>
+              <article class="card insight-card">
+                <h3>Off-Season Opportunities</h3>
+                <p>
+                  September–October show consistent YoY growth, suggesting potential
+                  for targeted off-season campaigns.
+                </p>
+                <span class="tag tag-opportunity">Opportunity</span>
+              </article>
+              <article class="card insight-card">
+                <h3>Infrastructure Gaps</h3>
+                <p>
+                  Hill stations in the North have high demand but limited capacity,
+                  indicating a need for accommodation expansion.
+                </p>
+                <span class="tag tag-alert">Needs attention</span>
+              </article>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        async function loadAnalytics() {
+            try {
+                const res = await fetch('http://localhost:3000/api/scientist/analytics');
+                const data = await res.json();
+
+                new Chart(document.getElementById('lineChart'), {
+                    type: 'line',
+                    data: {
+                        labels: data.footfalls.labels,
+                        datasets: [{
+                            label: 'Footfalls',
+                            data: data.footfalls.data,
+                            borderColor: '#3b82f6',
+                            tension: 0.1
+                        }]
+                    }
+                });
+
+                new Chart(document.getElementById('barChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.demographics.labels,
+                        datasets: [{
+                            label: 'Demographics %',
+                            data: data.demographics.data,
+                            backgroundColor: ['#60a5fa', '#34d399', '#f472b6', '#fbbf24']
+                        }]
+                    }
+                });
+            } catch(e) {
+                console.error("Failed to load analytics: ", e);
+            }
+        }
+        loadAnalytics();
+    </script>
+  </body>
+</html>
+

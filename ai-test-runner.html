@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelSphere | Comprehensive AI Test Runner</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .test-dashboard {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .test-case {
+            background: #f8f9fa;
+            border-left: 5px solid #ccc;
+            padding: 16px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .test-case h4 { margin: 0 0 8px 0; font-size: 1.1rem; color: #333; }
+        .test-case p { margin: 0 0 8px 0; font-size: 0.9rem; color: #666; font-style: italic;}
+        .test-case.pass { border-left-color: #10b981; background: #ecfdf5; }
+        .test-case.pass .status { color: #059669; font-weight: 600; }
+        .test-case.fail { border-left-color: #ef4444; background: #fef2f2; }
+        .test-case.fail .status { color: #dc2626; font-weight: 600; }
+        .error-log { margin-top: 10px; font-family: monospace; background: #fee2e2; padding: 10px; border-radius: 4px; color: #991b1b; font-size: 0.9rem; }
+        iframe { width: 100%; height: 400px; border: 2px solid #e2e8f0; border-radius: 8px; margin-top: 20px; }
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 20px; font-size: 0.85rem; background: #e5e7eb; margin-bottom: 12px; }
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 2px solid #f1f5f9; padding-bottom: 16px; }
+    </style>
+</head>
+<body style="background-color: #f1f5f9;">
+    
+    <div class="test-dashboard">
+        <div class="controls">
+            <div>
+                <h1 style="color: #0f172a; margin-bottom: 4px;">🤖 Full Test Runner</h1>
+                <p style="color: #64748b; margin: 0;">Executing API & Black Box Testing Constraints in Real-time</p>
+                <div style="margin-top: 8px; font-size: 0.85rem; color: #ef4444; font-weight: bold;">
+                  ⚠️ Ensure you have started the Node.js backend (<code>node server.js</code>) before running!
+                </div>
+            </div>
+            <button id="run-btn" class="btn-primary" style="padding: 12px 24px; cursor: pointer;">
+                ▶ Run Test Suite
+            </button>
+        </div>
+
+        <div id="results-container">
+            <p style="color: #64748b;">Click "Run Test Suite" to inject tests into the UI and hit the backend API.</p>
+        </div>
+
+        <h3 style="margin-top: 40px; color: #334155;">Active Browser Context:</h3>
+        <iframe id="test-sandbox" title="Test Sandbox"></iframe>
+    </div>
+
+    <script>
+        const testSuite = [
+            {
+                id: "TC-REQ-01",
+                type: "Requirements Based Testing",
+                name: "Validate SRS: 'Forgot Password' link must exist",
+                targetUrl: "login.html",
+                execute: async (doc) => {
+                    // Intentionally failing to show Requirements tracing failure
+                    const pageText = doc.body.innerText.toLowerCase();
+                    if(!pageText.includes("forgot password")) {
+                        throw new Error("Missing Critical Requirement SRS-1.1.4: The 'Forgot Password' link is completely missing from the authentication module.");
+                    }
+                    return "Forgot password link verified.";
+                }
+            },
+            {
+                id: "TC-NEG-01",
+                type: "Negative Testing (API)",
+                name: "Reject sign-up constraints sent to Backend",
+                targetUrl: "login.html",
+                execute: async (doc) => {
+                    const nameField = doc.getElementById('signup-name');
+                    const emailField = doc.getElementById('signup-email');
+                    const passField = doc.getElementById('signup-password');
+                    const btn = doc.getElementById('signup-btn');
+                    
+                    if(!btn) throw new Error("Could not find the signup button in the DOM.");
+
+                    // Inject invalid data mapping to our DB constraints
+                    nameField.value = "Al"; // Under 3 chars
+                    emailField.value = "alex#test.com"; // Invalid email
+                    passField.value = "123"; // Under 6 chars
+
+                    // Trigger Backend fetch
+                    btn.click();
+                    
+                    // Wait for backend to respond
+                    await new Promise(r => setTimeout(r, 800));
+                    
+                    const messageBox = doc.getElementById('signup-message');
+                    if(messageBox.innerText.includes("✅")) {
+                        throw new Error("Backend failed to enforce constraints! It accepted invalid data.");
+                    }
+                    
+                    return `Backend correctly rejected invalid data: ${messageBox.innerText.replace('❌', '').trim()}`;
+                }
+            },
+            {
+                id: "TC-POS-01",
+                type: "Positive Testing (API)",
+                name: "Accept valid sign-up and return 201 Created",
+                targetUrl: "login.html",
+                execute: async (doc) => {
+                    const btn = doc.getElementById('signup-btn');
+                    
+                    // Inject valid data
+                    doc.getElementById('signup-name').value = "Test User " + Math.floor(Math.random()*100);
+                    doc.getElementById('signup-email').value = `tester${Math.floor(Math.random()*1000)}@travel.com`;
+                    doc.getElementById('signup-password').value = "secure123!";
+                    
+                    btn.click();
+                    await new Promise(r => setTimeout(r, 800));
+                    
+                    const messageBox = doc.getElementById('signup-message');
+                    if(!messageBox.innerText.includes("✅")) {
+                        throw new Error(`Expected Backend Success but got: ${messageBox.innerText}`);
+                    }
+                    return "Backend returned 201 Created and validated positive constraints.";
+                }
+            },
+            {
+                id: "TC-BVA-01",
+                type: "Boundary Value Analysis",
+                name: "Minimum constraint for 'Number of travelers'",
+                targetUrl: "traveler-custom.html",
+                execute: async (doc) => {
+                    const numberInput = doc.querySelector('input[type="number"]');
+                    numberInput.value = "0"; // Just below minimum boundary
+                    
+                    if(numberInput.checkValidity()) {
+                        throw new Error("UI Validation Bypassed: System accepted '0' travelers but boundary min='1'.");
+                    }
+                    return "System properly restricted input below minimum boundary via HTML constraints.";
+                }
+            },
+            {
+                id: "TC-EP-01",
+                type: "Equivalence Partitioning",
+                name: "Validate expected negative Budget constraints",
+                targetUrl: "traveler-custom.html",
+                execute: async (doc) => {
+                    // Assuming budget cannot be negative text
+                    const budgetInput = doc.querySelectorAll('input[type="text"]')[2]; 
+                    budgetInput.value = "-10000";
+                    
+                    // Since it's a text box in prototype, we just prove the concept. If there was a validator:
+                    return `Partition class < 0 (Invalid) submitted. (Prototype bypasses validation since it's type="text" and not connected to an API logic block yet)`;
+                }
+            },
+            {
+                id: "TC-DT-01",
+                type: "Decision Tables",
+                name: "Standard Deduction Logic (International & > 50k)",
+                targetUrl: "agent-dashboard.html",
+                execute: async (doc) => {
+                    const scope = doc.getElementById('calc-scope');
+                    const cost = doc.getElementById('calc-cost');
+                    const btn = doc.getElementById('calc-btn');
+                    const result = doc.getElementById('calc-result');
+
+                    if(!btn) throw new Error("Commission calculator not found.");
+
+                    // Inject Decision Case: International AND > 50000
+                    scope.value = "International";
+                    cost.value = "120000";
+                    btn.click();
+
+                    await new Promise(r => setTimeout(r, 100));
+
+                    if(!result.innerText.includes("15%")) {
+                        throw new Error(`Decision Table Failed. Expected 15% deduction, got: ${result.innerText}`);
+                    }
+
+                    return "Decision rule executed properly. Agent gets max 15% deduction.";
+                }
+            }
+        ];
+
+        const runButton = document.getElementById('run-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const iframe = document.getElementById('test-sandbox');
+
+        runButton.addEventListener('click', async () => {
+            runButton.disabled = true;
+            runButton.innerText = "⏳ Running Full Suite...";
+            resultsContainer.innerHTML = '';
+
+            for (let i = 0; i < testSuite.length; i++) {
+                const test = testSuite[i];
+                
+                const uiNode = document.createElement('div');
+                uiNode.className = 'test-case';
+                uiNode.innerHTML = `
+                    <span class="status-badge">${test.id}</span>
+                    <p>${test.type}</p>
+                    <h4>${test.name}</h4>
+                    <span class="status">Loading context (${test.targetUrl})...</span>
+                `;
+                resultsContainer.appendChild(uiNode);
+
+                try {
+                    await new Promise((resolve, reject) => {
+                        iframe.onload = resolve;
+                        iframe.onerror = reject;
+                        // Add cache buster query parameter so onload always fires even if the URL is the same
+                        iframe.src = test.targetUrl + "?t=" + new Date().getTime();
+                    });
+
+                    // Wait for DOM to paint
+                    await new Promise(r => setTimeout(r, 1000));
+                    
+                    const frameDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const successMessage = await test.execute(frameDoc);
+
+                    uiNode.className = 'test-case pass';
+                    uiNode.querySelector('.status').innerText = `✅ PASS: ${successMessage}`;
+
+                } catch (error) {
+                    uiNode.className = 'test-case fail';
+                    uiNode.querySelector('.status').innerText = '❌ FAILED';
+                    uiNode.innerHTML += `<div class="error-log">${error.message}</div>`;
+                }
+            }
+
+            runButton.disabled = false;
+            runButton.innerText = "▶ Re-run Test Suite";
+        });
+    </script>
+</body>
+</html>

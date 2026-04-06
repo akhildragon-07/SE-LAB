@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TravelSphere | Custom Package Request</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav">
+        <div class="brand">
+          <div class="brand-logo"></div>
+          <div class="brand-title">TravelSphere</div>
+        </div>
+        <nav class="nav-links">
+          <a href="traveler-dashboard.html">Dashboard</a>
+        </nav>
+      </header>
+
+      <main class="main-content">
+        <div class="page">
+          <div class="section-header" style="margin-top: 24px">
+            <div>
+              <h2 class="section-title">Request a custom package</h2>
+              <p class="section-subtitle">
+                Share your preferences so our travel agents can design a tailored
+                itinerary with costings.
+              </p>
+            </div>
+          </div>
+
+          <section class="card" style="margin-top: 12px">
+            <form id="custom-form">
+              <div class="filter-group" style="margin-bottom: 12px">
+                <label>Preferred destination(s)</label>
+                <input id="req-dest" type="text" placeholder="E.g. Munnar + Thekkady" />
+              </div>
+              <div class="filter-group" style="margin-bottom: 12px">
+                <label>Travel dates</label>
+                <input id="req-dates" type="text" placeholder="Approximate dates or month" />
+              </div>
+              <div class="filter-group" style="margin-bottom: 12px">
+                <label>Number of travelers</label>
+                <input id="req-travelers" type="number" min="1" max="10" placeholder="2 adults, 1 child" />
+              </div>
+              <div class="filter-group" style="margin-bottom: 12px">
+                <label>Budget range</label>
+                <input id="req-budget" type="text" placeholder="E.g. ₹40,000 – ₹60,000" />
+              </div>
+              <div class="filter-group" style="margin-bottom: 12px">
+                <label>Interests</label>
+                <input
+                  id="req-interests"
+                  type="text"
+                  placeholder="Beach, hill stations, adventure, heritage, etc."
+                />
+              </div>
+              <div class="filter-group" style="margin-bottom: 16px">
+                <label>Additional requirements</label>
+                <textarea
+                  id="req-additional"
+                  rows="4"
+                  style="resize: vertical; padding: 8px; border-radius: 10px; border: 1px solid var(--color-border); font-family: inherit; font-size: 0.9rem"
+                  placeholder="Hotel preferences, transport, activities, special needs…"
+                ></textarea>
+              </div>
+
+              <button type="button" id="submit-custom" class="btn-primary">
+                Submit request to agents
+              </button>
+              <div id="custom-msg" style="margin-top: 10px; font-weight: 500;"></div>
+            </form>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document.getElementById('submit-custom').addEventListener('click', async () => {
+        const user = JSON.parse(localStorage.getItem('travelsphere_user'));
+        if (!user) {
+            alert("You must be logged in to make a request.");
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const btn = document.getElementById('submit-custom');
+        btn.innerText = "Submitting...";
+        btn.disabled = true;
+
+        const data = {
+            userEmail: user.email,
+            userName: user.name,
+            destination: document.getElementById('req-dest').value,
+            dates: document.getElementById('req-dates').value,
+            travelers: document.getElementById('req-travelers').value,
+            budget: document.getElementById('req-budget').value,
+            interests: document.getElementById('req-interests').value,
+            additional: document.getElementById('req-additional').value
+        };
+
+        try {
+            const res = await fetch('http://localhost:3000/api/custom-request', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            
+            const msgEl = document.getElementById('custom-msg');
+            msgEl.style.color = res.ok ? 'green' : 'red';
+            msgEl.innerText = result.message;
+
+            if (res.ok) document.getElementById('custom-form').reset();
+        } catch(e) {
+            alert("Error communicating with the backend.");
+        }
+
+        btn.innerText = "Submit request to agents";
+        btn.disabled = false;
+      });
+    </script>
+  </body>
+</html>
+

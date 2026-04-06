@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TravelSphere | Agent Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav">
+        <div class="brand">
+          <div class="brand-logo"></div>
+          <div class="brand-title">TravelSphere</div>
+        </div>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main-content">
+        <div class="page">
+          <div class="section-header" style="margin-top: 24px">
+            <div>
+              <h2 class="section-title">Travel Agent Dashboard</h2>
+              <p class="section-subtitle">
+                View custom requests, build packages, and manage bookings.
+              </p>
+            </div>
+          </div>
+
+          <div class="card-grid" style="grid-template-columns: repeat(3, 1fr)">
+            <article class="role-card">
+              <h3>Total packages</h3>
+              <p>18 published</p>
+            </article>
+            <article class="role-card">
+              <h3>Active custom requests</h3>
+              <p>4 awaiting proposal</p>
+            </article>
+            <article class="role-card">
+              <h3>Monthly revenue</h3>
+              <p>₹2,40,000</p>
+            </article>
+          </div>
+
+          <section class="section">
+            <div class="section-header">
+              <h2 class="section-title">Incoming custom package requests</h2>
+            </div>
+            <div class="insights-grid" id="requests-container" style="grid-template-columns: repeat(2, 1fr)">
+               <p>Loading requests...</p>
+            </div>
+          </section>
+
+          <!-- Commission Calculator added for Decision Table Testing -->
+          <section class="section" style="margin-top: 32px">
+            <div class="section-header">
+              <h2 class="section-title">Commission Standard Deduction Calculator</h2>
+              <p class="section-subtitle">Decision Table Testing Environment</p>
+            </div>
+            <div class="card">
+              <form id="calc-form" style="display: flex; gap: 16px; align-items: flex-end;">
+                <div class="filter-group">
+                  <label>Package Scope</label>
+                  <select id="calc-scope">
+                    <option value="Domestic">Domestic</option>
+                    <option value="International">International</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label>Total Cost (₹)</label>
+                  <input type="number" id="calc-cost" placeholder="e.g. 60000" />
+                </div>
+                <button type="button" id="calc-btn" class="btn-primary">Calculate Deduction</button>
+              </form>
+              <div id="calc-result" style="margin-top: 16px; font-weight: bold; color: #059669; display: none;"></div>
+            </div>
+          </section>
+
+          <script>
+            document.getElementById('calc-btn').addEventListener('click', () => {
+              const customScope = document.getElementById('calc-scope').value;
+              const customCost = Number(document.getElementById('calc-cost').value);
+              const resultBox = document.getElementById('calc-result');
+              
+              let deduction = '5%';
+
+              // DECISION TABLE LOGIC
+              if (customScope === 'Domestic' && customCost <= 50000) {
+                deduction = '5%';
+              } else if (customScope === 'Domestic' && customCost > 50000) {
+                deduction = '10%';
+              } else if (customScope === 'International' && customCost <= 50000) {
+                deduction = '10%';
+              } else if (customScope === 'International' && customCost > 50000) {
+                deduction = '15%';
+              }
+
+              resultBox.innerText = `Calculated System Deduction: ${deduction}`;
+              resultBox.style.display = 'block';
+            });
+
+      async function loadRequests() {
+        try {
+          const res = await fetch('http://localhost:3000/api/agent/requests');
+          const requests = await res.json();
+          const container = document.getElementById('requests-container');
+          
+          if (!requests || requests.length === 0) {
+              container.innerHTML = "<p>No active requests currently.</p>";
+              return;
+          }
+
+          container.innerHTML = requests.map(req => `
+            <article class="card insight-card" style="display:flex; flex-direction:column;">
+              <h3>Custom Trip to ${req.destination || 'Unknown'}</h3>
+              <p>Requested by: ${req.userEmail} | Travelers: ${req.travelers} | Budget: ${req.budget}</p>
+              <p><strong>Interests:</strong> ${req.interests || 'None'}</p>
+              <p><strong>Additional:</strong> ${req.additional || 'None'}</p>
+              <div style="margin-top: 10px;">
+                <span class="tag ${req.status === 'Approved' ? 'tag-growth' : 'tag-opportunity'}">${req.status}</span>
+              </div>
+              ${req.status === 'Pending' ? `<button class="btn-primary" style="margin-top: 10px;" onclick="approveRequest(${req.id})">Approve & Send Costing</button>` : ''}
+            </article>
+          `).join('');
+        } catch (e) {
+          document.getElementById('requests-container').innerHTML = "<p>Error loading requests.</p>";
+        }
+      }
+
+      async function approveRequest(id) {
+        try {
+            const res = await fetch('http://localhost:3000/api/agent/approve', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+            const result = await res.json();
+            alert(result.message);
+            loadRequests();
+        } catch(e) {
+            alert("Error approving.");
+        }
+      }
+
+      loadRequests();
+          </script>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+
