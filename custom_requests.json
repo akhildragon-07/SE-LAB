@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "userEmail": "akhiltech06@gmail.com",
+    "userName": "Akhil",
+    "destination": "Munnar",
+    "dates": "25",
+    "travelers": "30",
+    "budget": "40,000-50,000",
+    "interests": "Beach",
+    "additional": "",
+    "id": 1775497853527,
+    "status": "Pending",
+    "date": "2026-04-06T17:50:53.527Z"
+  },
+  {
+    "userEmail": "akhilvitap24@outlook.com",
+    "userName": "CARL",
+    "destination": "Kodaikanal",
+    "dates": "5 days",
+    "travelers": "20",
+    "budget": "50,000",
+    "interests": "hill",
+    "additional": "",
+    "id": 1775498127932,
+    "status": "Approved",
+    "date": "2026-04-06T17:55:27.932Z"
+  }
+]

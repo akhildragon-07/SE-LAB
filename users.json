@@ -226,5 +226,35 @@
     "email": "tester856@travel.com",
     "password": "secure123!",
     "role": "Traveler"
+  },
+  {
+    "name": "Akhil",
+    "email": "akhiltech06@gmail.com",
+    "password": "Akhil@2006",
+    "role": "Traveler"
+  },
+  {
+    "name": "Akhil Rajan",
+    "email": "akhildragon7@gmail.com",
+    "password": "Akhil@2006",
+    "role": "Travel Agent"
+  },
+  {
+    "name": "CARL",
+    "email": "akhilvitap24@outlook.com",
+    "password": "Akhil_1234",
+    "role": "Traveler"
+  },
+  {
+    "name": "Akhil rajan",
+    "email": "akhiii@gmail.com",
+    "password": "Akhil@2006",
+    "role": "Admin"
+  },
+  {
+    "name": "Rajan",
+    "email": "akhh@gmail.com",
+    "password": "Akhil@2006",
+    "role": "NATPAC Scientist"
   }
 ]
